@@ -9,6 +9,7 @@ Features
 --------
 
 This program includes:
+
 *  My head bobbling.
 *  Music (albeit just two versions of the same song).
 *  The warm fuzzy feeling that it is *not* written in VB6.
