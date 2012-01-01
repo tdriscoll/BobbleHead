@@ -8,7 +8,7 @@ class ModelTests(TestCase):
         self.model = BobbleHeadModel()
     
     def increment_many(self, times):
-        for x in range(times):
+        for _ in range(times):
             self.model.increment()
     
     def test_increment_1_time(self):
