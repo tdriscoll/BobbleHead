@@ -1,9 +1,9 @@
-from PyQt4 import QtGui
+from PyQt4.QtGui import QApplication
 import sys
 from bobble.presenter import BobbleHeadPresenter
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     presenter = BobbleHeadPresenter()
     presenter.initialize()
     sys.exit(app.exec_())

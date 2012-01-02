@@ -1,5 +1,5 @@
 from unittest.case import TestCase
-from bobble.songs import Songs
+from menu.songs import Songs
 
 
 class SongsTests(TestCase):

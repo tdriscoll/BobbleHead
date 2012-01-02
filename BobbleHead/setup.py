@@ -26,7 +26,7 @@ data_files.extend(find_data_files(r'src\sounds','sounds',['*']))
 data_files.append(('phonon_backend', [r'C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll' ]))
 
 setup(name="BobbleHead",  
-      version="0.1",  
+      version="0.2",  
       author="Tim Driscoll",  
       license="GNU General Public License (GPL)",  
       packages=[r'src'],  

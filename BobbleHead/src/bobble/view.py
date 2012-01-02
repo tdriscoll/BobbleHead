@@ -2,7 +2,8 @@ from PyQt4.QtGui import QGraphicsView, QPixmap, QGraphicsPixmapItem, QMainWindow
                         QDesktopWidget, QMatrix, QAction, QIcon, qApp
 from PyQt4.QtCore import Qt
 from common.decorators import LazyProperty
-from bobble.songs import Songs
+from menu.songs import Songs
+from menu.speeds import Speeds
 
 class BobbleHeadView(QMainWindow):
     
@@ -12,7 +13,8 @@ class BobbleHeadView(QMainWindow):
     TITLE = 'Tim Bobble Head'
     
     def render(self):
-        self.create_song_menu_bar()
+        self.create_menu('Sound', self.song_actions)
+        self.create_menu('Speed', self.speed_actions)
         
         view = QGraphicsView(self.scene)
         self.setCentralWidget(view) 
@@ -23,26 +25,34 @@ class BobbleHeadView(QMainWindow):
         self.setWindowTitle(self.TITLE)
         self.setWindowIcon(QIcon(self.ICON_IMAGE_LOCATION))    
     
-    def create_song_menu_bar(self):
-        """ Creates a menu.  Groups them so you can only select one at a time, """
-        menuActionGroup = QActionGroup(self)
-        menuActionGroup.setExclusive(True)
+    def create_menu(self, menu_name, menu_actions):
+        """ Creates a menu.  Groups them so you can only select one at a time. """
+        menu_action_group = QActionGroup(self)
+        menu_action_group.setExclusive(True)
         menubar = self.menuBar()
-        sound_menu = menubar.addMenu('Sound')
-        for action in self.song_actions:
-            menuActionGroup.addAction(action)
-            sound_menu.addAction(action)
-            
+        menu = menubar.addMenu(menu_name)
+        for action in menu_actions:
+            menu_action_group.addAction(action)
+            menu.addAction(action)
+    
     @LazyProperty
     def song_actions(self):
+        return self.get_actions(Songs)
+    
+    @LazyProperty
+    def speed_actions(self):
+        return self.get_actions(Speeds)
+        
+    def get_actions(self, menu_class):
         actions = []
-        for song in Songs.ALL_SONGS:
-            action = QAction(song.name, self)
+        for menu_item in menu_class.ALL:
+            action = QAction(menu_item.name, self)
             action.setCheckable(True)
-            if song == Songs.DEFAULT_SONG:
+            if menu_item == menu_class.DEFAULT:
                 action.setChecked(True)
             actions.append(action)
         return actions
+    
     
     @LazyProperty
     def background_pixmap(self):

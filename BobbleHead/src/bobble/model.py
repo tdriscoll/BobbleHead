@@ -1,4 +1,4 @@
-from bobble.songs import Songs
+from menu.songs import Songs
 
 
 class BobbleHeadModel(object):
@@ -8,7 +8,7 @@ class BobbleHeadModel(object):
         self.head_rotation= 0
         self.moving_down = True
         self.spinning_right = True
-        self.current_song = Songs.DEFAULT_SONG
+        self.current_song = Songs.DEFAULT
         
     def increment(self):
         if self.head_location.y == 10:
