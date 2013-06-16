@@ -4,14 +4,11 @@ from PyQt4.QtCore import Qt
 from common.decorators import LazyProperty
 from menu.songs import Songs
 from menu.speeds import Speeds
+from common.constants import Application
+from common.file_location import FileLocation
 
 class BobbleHeadView(QMainWindow):
-    
-    BACKGROUND_IMAGE_LOCATION = r"images\background.png"
-    HEAD_IMAGE_LOCATION = r"images\timhead.png"
-    ICON_IMAGE_LOCATION = r'images\BobbleHead Bill_32X32.ico'
-    TITLE = 'Tim Bobble Head'
-    
+#     
     def render(self):
         self.create_menu('Sound', self.song_actions)
         self.create_menu('Speed', self.speed_actions)
@@ -20,10 +17,12 @@ class BobbleHeadView(QMainWindow):
         self.setCentralWidget(view) 
         
         #set window to size of background image, need some extra pixels to fit menu bar and crap
+        #TODO: Do not need this on Ubuntu
         self.resize(self.background_pixmap.width()+2, self.background_pixmap.height()+23) 
+        
         self.center_window()
-        self.setWindowTitle(self.TITLE)
-        self.setWindowIcon(QIcon(self.ICON_IMAGE_LOCATION))    
+        self.setWindowTitle(Application.NAME)
+        self.setWindowIcon(QIcon(FileLocation.ICON_IMAGE_LOCATION))    
     
     def create_menu(self, menu_name, menu_actions):
         """ Creates a menu.  Groups them so you can only select one at a time. """
@@ -56,7 +55,7 @@ class BobbleHeadView(QMainWindow):
     
     @LazyProperty
     def background_pixmap(self):
-        return QPixmap(self.BACKGROUND_IMAGE_LOCATION)
+        return QPixmap(FileLocation.BACKGROUND_IMAGE_LOCATION)
     
     @LazyProperty
     def background_pixmap_item(self):
@@ -64,7 +63,7 @@ class BobbleHeadView(QMainWindow):
     
     @LazyProperty
     def head_pixmap(self):
-        return QPixmap(self.HEAD_IMAGE_LOCATION)
+        return QPixmap(FileLocation.HEAD_IMAGE_LOCATION)
     
     @LazyProperty   
     def head_pixmap_item(self):
