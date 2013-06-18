@@ -1,5 +1,4 @@
 from bobble.model import BobbleHeadModel
-from bobble.view import BobbleHeadView
 from PyQt4.QtCore import QTimer, QObject, SIGNAL
 from functools import partial
 from menu.speeds import Speeds
@@ -8,9 +7,9 @@ class BobbleHeadPresenter(object):
     
     MILISECONDS_BETWEEN_HEAD_MOVES = 10
     
-    def __init__(self):
+    def __init__(self, view):
+        self.view = view
         self.model = BobbleHeadModel()
-        self.view = BobbleHeadView()
     
     def initialize(self):
         #Start up screen
