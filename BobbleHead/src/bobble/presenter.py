@@ -1,15 +1,16 @@
 from bobble.model import BobbleHeadModel
-from PyQt4.QtCore import QTimer, QObject, SIGNAL
 from functools import partial
 from menu.speeds import Speeds
 
 class BobbleHeadPresenter(object):
     
     MILISECONDS_BETWEEN_HEAD_MOVES = 10
+    timer_util = None
     
     def __init__(self, view):
         self.view = view
         self.model = BobbleHeadModel()
+        self.timer = None
     
     def initialize(self):
         #Start up screen
@@ -24,9 +25,8 @@ class BobbleHeadPresenter(object):
         self.view.show()
         
     def start_head_mover(self):
-        self.timer = QTimer()
-        QObject.connect(self.timer, SIGNAL("timeout()"), self.bobble_the_head)
-        self.timer.start(Speeds.DEFAULT.milliseconds)
+        self.timer = self.timer_util.create_timer(self.bobble_the_head)
+        self.timer.start(Speeds.DEFAULT.milliseconds)  # @UndefinedVariable
     
     def register_callbacks(self):
         for menu_action in self.view.song_actions:
@@ -34,6 +34,7 @@ class BobbleHeadPresenter(object):
             
         for menu_action in self.view.speed_actions:
             menu_action.triggered.connect(partial(self.change_speed, str(menu_action.text())))
+    
     
     def bobble_the_head(self):
         self.model.increment()

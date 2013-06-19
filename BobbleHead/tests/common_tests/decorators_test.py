@@ -1,5 +1,5 @@
 from unittest.case import TestCase
-from common.decorators import LazyProperty
+from common.lazy_property import LazyProperty
 
 
 class TestMe(object):

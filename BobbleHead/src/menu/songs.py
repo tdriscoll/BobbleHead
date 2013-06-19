@@ -1,10 +1,10 @@
-from PyQt4.phonon import Phonon
-from common.decorators import LazyProperty
-from PyQt4.QtCore import QObject, SIGNAL
 from menu.base_menu import BaseMenu, BaseMenuItem
 from common.file_location import FileLocation
+from common.lazy_property import LazyProperty
 
 class Song(BaseMenuItem):
+    
+    music_player = None
     
     def __init__(self, name, location=None):
         super(Song, self).__init__(name)
@@ -12,21 +12,16 @@ class Song(BaseMenuItem):
         
     @LazyProperty
     def _player(self):
-        return Phonon.createPlayer(Phonon.MusicCategory, Phonon.MediaSource(self.location))
+        return self.music_player(self.location)
 
     def play(self):
         if self.location:
             self._player.play()
-            QObject.connect(self._player, SIGNAL("finished()"), self.restart);
     
     def stop(self):
         if self.location:
             self._player.stop()
-            QObject.disconnect(self._player, SIGNAL("finished()"), self.restart);
     
-    def restart(self):
-        self._player.stop()
-        self._player.play()
 
 class Songs(BaseMenu):
     

@@ -5,5 +5,6 @@
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/BobbleHead/src</path>
 <path>/BobbleHead/tests</path>
+<path>/BobbleHead/test_framework</path>
 </pydev_pathproperty>
 </pydev_project>

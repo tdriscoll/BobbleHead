@@ -1,11 +1,11 @@
 from PyQt4.QtGui import QGraphicsView, QPixmap, QGraphicsPixmapItem, QMainWindow, QActionGroup, QGraphicsScene, \
                         QDesktopWidget, QMatrix, QAction, QIcon, qApp
 from PyQt4.QtCore import Qt
-from common.decorators import LazyProperty
 from menu.songs import Songs
 from menu.speeds import Speeds
 from common.constants import Application
 from common.file_location import FileLocation
+from common.lazy_property import LazyProperty
 
 class BobbleHeadView(QMainWindow):
 #     
